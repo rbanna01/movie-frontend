@@ -18,7 +18,6 @@ class MovieList extends React.Component
 		{
 		 method: "DELETE"
 		});
-		console.log('delete movie with ID: ' + id);
 	}
 	
 	refreshMovies()
