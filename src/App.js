@@ -1,5 +1,5 @@
 import './App.css';
-import MovieList from './MovieList.js';
+import MoviePanel from './MoviePanel.tsx';
 
 function App() {
   
@@ -10,7 +10,7 @@ function App() {
 		<div>Frontend for <code>.NET Core API</code> backend code</div>
       </header>
 	  <div>
-	      <MovieList/> 
+	      <MoviePanel/> 
 	  </div>
     </div>
   );

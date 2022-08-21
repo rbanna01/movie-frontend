@@ -5,10 +5,19 @@ import CancelIcon from './images/close-circle-line.svg';
 import ActionIcon from './ActionIcon.js'; 
 import $ from 'jquery';
 import './movieItemEdit.css';
+import {Movie} from './MovieItem';
  
- function MovieItemEdit({movie, saveClicked, cancelClicked})
+export class Props {
+	key: number;
+	movie: Movie;
+	saveClicked: (Movie) => void
+	cancelClicked: () => void
+}
+
+ export function MovieItemEdit(props: Props)
  {
 	 const errorClass = 'movieItemEditError';
+	 const {key, movie, saveClicked, cancelClicked} = props;
 	 
 	function removeErrorValues(el)
 	{
@@ -105,25 +114,17 @@ function numberToDateFormat(number)
 		return number;
 	}
 }
-function getDateOrEmptyStringFromInput(inputDateJSON)
+function getDateOrEmptyStringFromInput(inputDate: Date)
 {
-	var date = new Date(inputDateJSON);
-	if(inputDateJSON)
-	{
-		return date.getFullYear() 
+		return String(inputDate.getFullYear()).padStart(4, '0') 
 		+ '-' 
-		+ numberToDateFormat(date.getMonth() + 1) 
+		+ numberToDateFormat(inputDate.getMonth() + 1) 
 		+ '-' 
-		+ numberToDateFormat(date.getDate());
-	}
-	else
-	{
-		return '';
-	}
+		+ numberToDateFormat(inputDate.getDate());
 }
 
  return (<>
-         <tr className="movieItem" itemID={movie.id}>
+         <tr key={key} className="movieItem" itemID={movie.id}>
 	     <td><input className="movieItemName movieItemEditField" type="text" defaultValue={movie.name}/></td>
 		 <td><input type="date" className="movieFilmingStarted movieItemEditField" defaultValue ={getDateOrEmptyStringFromInput(movie.filmingStarted)}/></td>
 		 <td><input type="date" className="movieFilmingEnded movieItemEditField" defaultValue ={getDateOrEmptyStringFromInput(movie.filmingEnded)}/></td>
@@ -134,17 +135,4 @@ function getDateOrEmptyStringFromInput(inputDateJSON)
 	  
     );
 	}
-
-MovieItemEdit.propTypes = 
-{
-	movie: PropTypes.shape ({
-		id: PropTypes.number.isRequired,
-	name: PropTypes.string.isRequired,
-	 filmingStarted: PropTypes.string.isRequired,
-	 filmingEnded: PropTypes.string.isRequired,
-	}).isRequired,
-	saveClicked: PropTypes.func,
-	cancelClicked: PropTypes.func
-};
-
 export default MovieItemEdit;
